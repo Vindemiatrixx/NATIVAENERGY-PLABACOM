@@ -70,10 +70,15 @@ def cargar_archivo(ruta, local_file_path, nombre_archivo):
 
 def descomprimir_Zip():
 
-    patron = r'PLABACOM_(\d{4})_(\d{2})_.*?(Potencia|SSCC|Energia).*?(Definitivo|Def|DEF|def).*\.zip$'
-
-    carpetas = ["Energia", "SSCC", "Potencia"]
     ruta_zips = "zips/"
+
+    if not os.path.exists(ruta_zips):
+
+        print("La carpeta zips no existe, por favor crear la carpeta y cargar los archivos correspondientes.")
+        return None
+
+    patron = r'PLABACOM_(\d{4})_(\d{2})_.*?(Potencia|SSCC|Energia).*?(Definitivo|Def|DEF|def).*\.zip$'
+    carpetas = ["Energia", "SSCC", "Potencia"]
     for carpeta in carpetas:
 
         os.makedirs(carpeta, exist_ok=True)
@@ -688,6 +693,11 @@ if __name__ == "__main__":
     initialize_storage_account_sas("grupocerrounodatalake","sp=racwdlmeop&st=2024-11-05T20:44:46Z&se=2100-11-06T04:44:46Z&sv=2022-11-02&sr=c&sig=ASobPbtE7jPqsvnz2E243hwatOeuqoi4OGs6OxJNSME%3D")
 
     valores = descomprimir_Zip()
+
+    if valores == None:
+
+        exit()
+        
     anio = int(valores[0])
     mes = int(valores[1])
     version = str(valores[2])

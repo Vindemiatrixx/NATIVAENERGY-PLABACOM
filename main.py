@@ -696,8 +696,12 @@ if __name__ == "__main__":
 
     if valores == None:
 
+        lista_carpetas = ["Energia", "Potencia", "SSCC", "archivos_parquet"]
+        for carpeta in lista_carpetas:
+            if os.path.exists(carpeta):
+                shutil.rmtree(carpeta)
         exit()
-        
+
     anio = int(valores[0])
     mes = int(valores[1])
     version = str(valores[2])
